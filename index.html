@@ -52,7 +52,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 #people{flex-wrap:wrap}
 #people .b{flex:1 1 40%}
 .dot{width:14px;height:14px;border-radius:50%;flex:none;border:2px solid rgba(255,255,255,.85);box-shadow:0 0 0 1px rgba(0,0,0,.35)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.two{display:grid;grid-template-columns:3fr 2fr;gap:8px}
 .two .seg .b{font-size:14px;padding:6px 4px}
 .mini{font-size:12px;color:var(--ink-2);margin:0 0 3px}
 .map{grid-area:map;position:relative;min-height:0;min-width:0;margin:0 16px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
@@ -91,6 +91,7 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 .floor{fill:none}
 .track{fill:var(--plan-track)}
 .sand,.mat{fill:none}
+.trib{fill:var(--line)}
 .ln{fill:none;stroke:var(--ink-2);stroke-width:.9}
 .ln.thin{stroke-width:.45}
 .ln.dash{stroke-dasharray:3 2}
@@ -102,6 +103,7 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 .color .track{fill:#B4513E}
 .color .sand{fill:#DCC48E}
 .color .mat{fill:#E7B21C}
+.color .trib{fill:#8C9590}
 .color .ln{stroke:#FFFFFF;stroke-opacity:.9}
 .color .tag{fill:#FFFFFF}
 .color #paint path{stroke-opacity:.82}
@@ -113,7 +115,8 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
   .b{font-size:14px;padding:4px 6px}
   .seg{flex-wrap:wrap}
   .seg .b{flex:1 1 40%}
-  .two .seg .b{flex:1 1 100%}
+  .two{grid-template-columns:1fr}
+  .two .seg .b{flex:1 1 28%}
   .map{margin:10px 16px 10px 0}
   .top h1{font-size:22px}
   #info{min-height:32px;font-size:14px}
@@ -143,7 +146,8 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
       <div><p class="mini">Breite</p>
         <div class="seg" role="group" aria-label="Breite">
           <button class="b" id="b-all" data-k="brush" data-v="all">Ganze</button>
-          <button class="b" id="b-one" data-k="brush" data-v="one">Eine Bahn</button>
+          <button class="b" id="b-mid" data-k="brush" data-v="mid">Mittel</button>
+          <button class="b" id="b-one" data-k="brush" data-v="one">Schmal</button>
         </div>
       </div>
       <div><p class="mini">Ansicht</p>
@@ -157,38 +161,46 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 
   <main class="map" id="map">
     <svg id="svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hallenplan von oben">
-      <defs><clipPath id="inf"><path d="M270 120 H480 A84 84 0 0 1 480 288 H270 A84 84 0 0 1 270 120 Z"/></clipPath></defs>
+      <defs><clipPath id="inf"><path d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/></clipPath><clipPath id="outc"><path clip-rule="evenodd" d="M30 6 H678 Q700 160 681 315 H30 Q4 160 30 6 Z M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z"/></clipPath></defs>
       <g id="world">
-        <rect class="hall" x="8" y="4" width="664" height="332" rx="6"/>
-        <rect class="track" x="40" y="14" width="600" height="44"/>
-        <path class="track" fill-rule="evenodd" d="M270 84 H480 A120 120 0 0 1 480 324 H270 A120 120 0 0 1 270 84 Z M270 120 H480 A84 84 0 0 1 480 288 H270 A84 84 0 0 1 270 120 Z"/>
-        <path class="floor" d="M270 120 H480 A84 84 0 0 1 480 288 H270 A84 84 0 0 1 270 120 Z"/>
-        <rect class="track" x="215" y="176" width="330" height="56"/>
-        <rect class="track" x="300" y="143" width="170" height="8"/>
-        <rect class="sand" x="255" y="137" width="45" height="20"/>
-        <rect class="track" x="300" y="256" width="170" height="8"/>
-        <rect class="mat" x="470" y="248" width="32" height="24"/>
-        <rect class="mat" x="232" y="246" width="30" height="22"/>
+        <path class="hall" id="hallp" d="M30 6 H678 Q700 160 681 315 H30 Q4 160 30 6 Z"/>
+        <rect class="trib" x="160" y="8" width="520" height="6"/>
+        <rect class="track" x="31" y="18" width="700" height="39"/>
+        <path class="track" fill-rule="evenodd" d="M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/>
+        <path class="floor" d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/>
+        <rect class="track" x="119" y="60" width="31" height="254"/>
+        <rect class="mat" x="117" y="66" width="35" height="40"/>
+        <rect class="mat" x="12" y="160" width="87" height="76"/>
+        <rect class="track" x="205" y="134" width="322" height="49"/>
+        <path class="track" d="M234 108 H430 L444 102 H501 V126 H444 L430 118 H234 Z"/>
+        <rect class="sand" x="452" y="105" width="45" height="18"/>
+        <path class="track" d="M234 230 H430 L444 224 H501 V248 H444 L430 240 H234 Z"/>
+        <rect class="sand" x="452" y="227" width="45" height="18"/>
+        <rect class="track" x="297" y="196" width="312" height="10"/>
+        <rect class="track" x="297" y="209" width="312" height="10"/>
+        <rect class="mat" x="258" y="194" width="39" height="28"/>
+        <rect class="trib" x="161" y="289" width="58" height="13"/><rect class="trib" x="228" y="289" width="58" height="13"/><rect class="trib" x="295" y="289" width="58" height="13"/><rect class="trib" x="362" y="289" width="58" height="13"/><rect class="trib" x="429" y="289" width="58" height="13"/><rect class="trib" x="496" y="289" width="58" height="13"/>
         <g id="lanes" fill="none" stroke="none"></g>
         <g id="paint" fill="none"></g>
         <g>
-          <rect class="ln" x="40" y="14" width="600" height="44"/>
-          <path class="ln thin" d="M40 21.3 H640 M40 28.7 H640 M40 36 H640 M40 43.3 H640 M40 50.7 H640"/>
-          <path class="ln" d="M270 84 H480 A120 120 0 0 1 480 324 H270 A120 120 0 0 1 270 84 Z"/>
-          <path class="ln thin" d="M270 90 H480 A114 114 0 0 1 480 318 H270 A114 114 0 0 1 270 90 Z"/>
-          <path class="ln thin" d="M270 96 H480 A108 108 0 0 1 480 312 H270 A108 108 0 0 1 270 96 Z"/>
-          <path class="ln thin" d="M270 102 H480 A102 102 0 0 1 480 306 H270 A102 102 0 0 1 270 102 Z"/>
-          <path class="ln thin" d="M270 108 H480 A96 96 0 0 1 480 300 H270 A96 96 0 0 1 270 108 Z"/>
-          <path class="ln thin" d="M270 114 H480 A90 90 0 0 1 480 294 H270 A90 90 0 0 1 270 114 Z"/>
-          <path class="ln" d="M270 120 H480 A84 84 0 0 1 480 288 H270 A84 84 0 0 1 270 120 Z"/>
-          <rect class="ln" x="215" y="176" width="330" height="56"/>
-          <path class="ln thin" d="M215 183 H545 M215 190 H545 M215 197 H545 M215 204 H545 M215 211 H545 M215 218 H545 M215 225 H545"/>
-          <rect class="ln dash" x="255" y="137" width="45" height="20"/>
-          <rect class="ln dash" x="300" y="143" width="170" height="8"/>
-          <rect class="ln dash" x="300" y="256" width="170" height="8"/>
-          <rect class="ln dash" x="470" y="248" width="32" height="24"/>
-          <rect class="ln dash" x="232" y="246" width="30" height="22"/>
-          <text class="tag" x="340" y="72">Sprintgerade, nur zur Orientierung</text>
+          <path class="ln" d="M30 6 H678 Q700 160 681 315 H30 Q4 160 30 6 Z"/>
+          <rect class="ln" x="31" y="18" width="700" height="39"/>
+          <path class="ln thin" d="M31 24.5 H731 M31 31 H731 M31 37.5 H731 M31 44 H731 M31 50.5 H731"/>
+          <path class="ln" d="M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z"/>
+          <path class="ln thin" d="M268 65.5 H552 A107.5 107.5 0 0 1 552 280.5 H268 A107.5 107.5 0 0 1 268 65.5 Z"/> <path class="ln thin" d="M268 71 H552 A102 102 0 0 1 552 275 H268 A102 102 0 0 1 268 71 Z"/> <path class="ln thin" d="M268 76.5 H552 A96.5 96.5 0 0 1 552 269.5 H268 A96.5 96.5 0 0 1 268 76.5 Z"/> <path class="ln thin" d="M268 82 H552 A91 91 0 0 1 552 264 H268 A91 91 0 0 1 268 82 Z"/> <path class="ln thin" d="M268 87.5 H552 A85.5 85.5 0 0 1 552 258.5 H268 A85.5 85.5 0 0 1 268 87.5 Z"/>
+          <path class="ln" d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/>
+          <rect class="ln" x="205" y="134" width="322" height="49"/>
+          <path class="ln thin" d="M205 140.125 H527 M205 146.25 H527 M205 152.375 H527 M205 158.5 H527 M205 164.625 H527 M205 170.75 H527 M205 176.875 H527"/>
+          <rect class="ln" x="119" y="60" width="31" height="254"/>
+          <path class="ln thin" d="M126.75 60 V314 M134.5 60 V314 M142.25 60 V314"/>
+          <rect class="ln dash" x="117" y="66" width="35" height="40"/>
+          <rect class="ln dash" x="12" y="160" width="87" height="76"/>
+          <circle class="ln dash" cx="32" cy="126" r="6"/>
+          <path class="ln dash" d="M234 108 H430 L444 102 H501 V126 H444 L430 118 H234 Z"/>
+          <path class="ln dash" d="M234 230 H430 L444 224 H501 V248 H444 L430 240 H234 Z"/>
+          <rect class="ln dash" x="297" y="196" width="312" height="10"/>
+          <rect class="ln dash" x="297" y="209" width="312" height="10"/>
+          <rect class="ln dash" x="258" y="194" width="39" height="28"/>
         </g>
         <g id="pins"></g>
       </g>
@@ -247,8 +259,8 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 "use strict";
 var NS="http://www.w3.org/2000/svg";
 var PEOPLE=[{n:"Joel",c:"#2B7BFF"},{n:"Arno",c:"#FFC914"},{n:"Patrick",c:"#A259FF"},{n:"Lukas",c:"#35E0F2"}];
-var KEY="putzplan-halle-v1";
-var W0=680,H0=340;
+var KEY="putzplan-halle-v2";
+var W0=740,H0=322;
 var S={who:0,mode:"paint",brush:"all",view:"plan"};
 var notes=[];
 var $=function(id){return document.getElementById(id)};
@@ -259,26 +271,43 @@ function say(t,strong){info.textContent=t;info.className=strong?"strong":""}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
 
 /* ---------- Bahnen und Streifen ---------- */
-var lanes=[];
-function addLane(d,closed,w,grp,label,clip){
+var lanes=[],hallEl=$("hallp"),gcount={};
+function inHall(p){try{var pt=svg.createSVGPoint();pt.x=p.x;pt.y=p.y;return hallEl.isPointInFill(pt)}catch(e){return p.x>=6&&p.x<=697&&p.y>=6&&p.y<=315}}
+function region(p){
+  if(p.x>=31&&p.x<=731&&p.y>=18&&p.y<=57)return"gerade";
+  if(!inHall(p))return null;
+  var dx=p.x<268?268-p.x:p.x>552?p.x-552:0,r=Math.hypot(dx,p.y-173);
+  if(r<=80)return"inf";
+  if(r<=113)return"track";
+  if(p.x>=119&&p.x<=150&&p.y>=57)return"anlauf";
+  return"out";
+}
+function addLane(d,closed,w,grp,reg,label,clip){
   var el=document.createElementNS(NS,"path");el.setAttribute("d",d);laneG.appendChild(el);
   var L=el.getTotalLength(),pts=[];
   for(var s=0;s<L;s+=3){var q=el.getPointAtLength(s);pts.push({s:s,x:q.x,y:q.y})}
   var n=Math.max(1,Math.round(L/5)),g=document.createElementNS(NS,"g");
-  if(clip)g.setAttribute("clip-path","url(#inf)");
+  if(clip)g.setAttribute("clip-path","url(#"+clip+")");
   paintG.appendChild(g);
-  var l={d:d,closed:closed,w:w,grp:grp,label:label,L:L,pts:pts,n:n,ps:L/n,st:new Array(n).fill(null),g:g};
+  var gi=gcount[grp]||0;gcount[grp]=gi+1;
+  var l={d:d,closed:closed,w:w,grp:grp,gi:gi,reg:reg,label:label,L:L,pts:pts,n:n,ps:L/n,st:new Array(n).fill(null),g:g,valid:null};
+  if(clip){l.valid=[];for(var i=0;i<n;i++){var c=el.getPointAtLength((i+0.5)*l.ps);l.valid.push(region(c)===reg)}}
   lanes.push(l);return l;
 }
-[117,111,105,99,93,87].forEach(function(r,i){
-  addLane("M270 "+(204-r)+" H480 A"+r+" "+r+" 0 0 1 480 "+(204+r)+" H270 A"+r+" "+r+" 0 0 1 270 "+(204-r)+" Z",true,6,"rund","Rundbahn, Bahn "+(6-i),false);
+function rows(n,y0,y1,xa,xb,grp,reg,label,clip){var h=(y1-y0)/n;for(var k=0;k<n;k++){var y=(y0+h*(k+0.5)).toFixed(2);addLane("M"+xa+" "+y+" H"+xb,false,h,grp,reg,typeof label==="function"?label(k):label,clip)}}
+function cols(n,x0,x1,ya,yb,grp,reg,label,clip){var w=(x1-x0)/n;for(var k=0;k<n;k++){var x=(x0+w*(k+0.5)).toFixed(2);addLane("M"+x+" "+ya+" V"+yb,false,w,grp,reg,typeof label==="function"?label(k):label,clip)}}
+rows(6,18,57,31,731,"gerade","gerade",function(k){return"Sprintgerade, Bahn "+(k+1)},null);
+[110.25,104.75,99.25,93.75,88.25,82.75].forEach(function(r,i){
+  addLane("M268 "+(173-r)+" H552 A"+r+" "+r+" 0 0 1 552 "+(173+r)+" H268 A"+r+" "+r+" 0 0 1 268 "+(173-r)+" Z",true,5.5,"rund","track","Rundbahn, Bahn "+(6-i),null);
 });
-for(var k=0;k<24;k++){
-  var y=123.5+7*k,h=Math.sqrt(Math.max(1,84*84-(y-204)*(y-204)));
-  var grp=k<8?"innen-a":k<16?"innen-b":"innen-c";
-  var label=k<8?"Innenfeld, Seite zur Sprintgeraden":k<16?"Innenfeld, Sprintbahn "+(k-7):"Innenfeld, hintere Seite";
-  var l=addLane("M186 "+y+" H564",false,7,grp,label,true);l.clip=true;l.lo=84-h;l.hi=294+h;
-}
+rows(6,93,134,188,632,"innen-a","inf","Innenfeld, Seite zur Sprintgeraden","inf");
+rows(8,134,183,188,632,"innen-b","inf",function(k){return"Innenfeld, Sprintbahn "+(k+1)},"inf");
+rows(10,183,253,188,632,"innen-c","inf","Innenfeld, Seite zur Tribüne","inf");
+cols(4,119,150,60,314,"anlauf","anlauf",function(k){return"Anlaufbahn am Kopfende, Bahn "+(k+1)},null);
+cols(16,6,119,57,315,"kopf-aussen","out","Kopfende, Wurfbereich","outc");
+cols(17,150,268,57,315,"kopf-innen","out","Fläche zwischen Anlaufbahn und Rundbahn","outc");
+cols(21,552,697,57,315,"ende","out","Fläche hinter der Rundbahn","outc");
+rows(2,303,315,268,552,"tribuene","out","Streifen vor der Tribüne","outc");
 function near(l,p){var b=null,bd=1e9;for(var i=0;i<l.pts.length;i++){var q=l.pts[i],d=(q.x-p.x)*(q.x-p.x)+(q.y-p.y)*(q.y-p.y);if(d<bd){bd=d;b=q}}return{s:b.s,dist:Math.sqrt(bd)}}
 function key(v){return v?v.p+"|"+v.d:""}
 function seg(l,a,len,v){
@@ -303,7 +332,7 @@ function fill(l,a,b,v){
 }
 function progress(){
   var tot=0,done=0;
-  lanes.forEach(function(l){var a=l.ps*l.w;for(var i=0;i<l.n;i++){if(l.clip){var c=(i+0.5)*l.ps;if(c<l.lo||c>l.hi)continue}tot+=a;if(l.st[i])done+=a}});
+  lanes.forEach(function(l){var a=l.ps*l.w;for(var i=0;i<l.n;i++){if(l.valid&&!l.valid[i])continue;tot+=a;if(l.st[i])done+=a}});
   $("prog").textContent=Math.round(done/tot*100)+" % geputzt";
 }
 
@@ -320,18 +349,19 @@ function load(){
     lanes.forEach(function(l,i){l.st=o.lanes[i].map(function(v){return v?{p:v[0],d:v[1]}:null})});
     notes=Array.isArray(o.notes)?o.notes:[];
     if(PEOPLE[o.who])S.who=o.who;
-    if(o.brush==="one"||o.brush==="all")S.brush=o.brush;
+    if(o.brush==="one"||o.brush==="all"||o.brush==="mid")S.brush=o.brush;
     if(o.view==="plan"||o.view==="color")S.view=o.view;
     return true;
   }catch(e){return false}
 }
 function demo(){
   lanes.forEach(function(l){
-    if(l.grp==="rund")fill(l,210,210+(l.L-420)/2-0.1,{p:0,d:dstr(0)});
-    if(l.grp==="innen-b")fill(l,0,204,{p:2,d:dstr(1)});
-    if(l.grp==="innen-a")fill(l,0,144,{p:1,d:dstr(1)});
+    if(l.grp==="rund")fill(l,284,284+(l.L-568)/2-0.1,{p:0,d:dstr(0)});
+    if(l.grp==="innen-b")fill(l,0,200,{p:2,d:dstr(1)});
+    if(l.grp==="kopf-innen")fill(l,0,130,{p:1,d:dstr(1)});
+    if(l.grp==="gerade")fill(l,0,260,{p:3,d:dstr(0)});
   });
-  notes=[{x:486,y:260,t:"Matte liegt noch, nicht drunter gewischt",by:"Arno",d:dstr(1)}];
+  notes=[{x:277,y:208,t:"Matte liegt noch, nicht drunter gewischt",by:"Arno",d:dstr(1)}];
 }
 
 /* ---------- Ansicht: Drehen, Zoomen, Schieben ---------- */
@@ -371,11 +401,11 @@ svg.addEventListener("wheel",function(e){e.preventDefault();zoomAt(e.clientX,e.c
 
 /* ---------- Finger und Maus ---------- */
 var ptrs=new Map(),gesture=null,act=null,pan=null,pinch=null;
-function inInfield(p){var dx=p.x<270?270-p.x:p.x>480?p.x-480:0;return Math.hypot(dx,p.y-204)<=84}
-function hit(p){var best=null,bd=1e9,inf=inInfield(p);lanes.forEach(function(l){if(!!l.clip!==inf)return;var n=near(l,p);if(n.dist<=l.w/2+2.5&&n.dist<bd){bd=n.dist;best={l:l,s:n.s}}});return best}
+function hit(p){var reg=region(p);if(!reg)return null;var best=null,bd=1e9;lanes.forEach(function(l){if(l.reg!==reg)return;var n=near(l,p);if(n.dist<=l.w/2+2.5&&n.dist<bd){bd=n.dist;best={l:l,s:n.s}}});return best}
 function lockStroke(p){
   var h=hit(p);if(!h)return;
-  var set=S.brush==="all"?lanes.filter(function(l){return l.grp===h.l.grp}):[h.l];
+  var span=gcount[h.l.grp]<=8?1:2;
+  var set=S.brush==="one"?[h.l]:lanes.filter(function(l){return l.grp===h.l.grp&&(S.brush==="all"||Math.abs(l.gi-h.l.gi)<=span)});
   act.items=set.map(function(l){return{l:l,prev:near(l,p).s,snap:l.st.slice()}});
 }
 function strokeMove(e){
@@ -404,7 +434,7 @@ function tap(x,y){
   var p=toWorld(x,y);
   for(var i=notes.length-1;i>=0;i--){if(Math.hypot(notes[i].x-p.x,notes[i].y-p.y)<13){openNotes(i);return}}
   if(S.mode==="note"){
-    if(p.x<8||p.x>672||p.y<4||p.y>336){say("Tipp auf eine Stelle in der Halle.",false);return}
+    if(!region(p)){say("Tipp auf eine Stelle in der Halle.",false);return}
     openEdit(p);return;
   }
   var h=hit(p);
