@@ -91,7 +91,7 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 .chk input{width:22px;height:22px;accent-color:var(--accent)}
 
 /* Plan-Ansicht */
-.hall{fill:var(--panel);stroke:var(--line);stroke-width:1}
+.hall{fill:var(--panel);stroke:none}
 .floor{fill:none}
 .track{fill:var(--plan-track)}
 .sand,.mat{fill:none}
@@ -99,12 +99,13 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 .ln{fill:none;stroke:var(--ink-2);stroke-width:.9}
 .ln.thin{stroke-width:.45}
 .ln.dash{stroke-dasharray:3 2}
+.hallwall{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round}
 .wall{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
 .fence{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:5 2.2;stroke-linejoin:round}
 .tag{font-family:var(--font-body);font-size:8.5px;fill:var(--ink-2);text-anchor:middle}
 #paint path{stroke-opacity:.62}
 /* Farb-Ansicht */
-.color .hall{fill:#4E9977;stroke:#3B7A5D}
+.color .hall{fill:#4E9977}
 .color .floor{fill:#57A683}
 .color .track{fill:#B4513E}
 .color .sand{fill:#DCC48E}
@@ -112,7 +113,7 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 .color .trib{fill:#8C9590}
 .color .ln{stroke:#FFFFFF;stroke-opacity:.9}
 .color .tag{fill:#FFFFFF}
-.color .wall,.color .fence{stroke:#10201A}
+.color .wall,.color .fence,.color .hallwall{stroke:#10201A}
 .color #paint path{stroke-opacity:.82}
 
 @media (orientation:landscape) and (max-height:540px){
@@ -168,9 +169,9 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 
   <main class="map" id="map">
     <svg id="svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hallenplan von oben">
-      <defs><clipPath id="inf"><path d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/></clipPath><clipPath id="outc"><path clip-rule="evenodd" d="M30 6 H678 Q700 160 681 315 H30 Q4 160 30 6 Z M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z M661 202 L655 277 L634 307 L591 307 L591 280 A113 113 0 0 0 661 202 Z M158 303 H563 V315 H158 Z M351 286 H364 V303 H351 Z"/></clipPath><clipPath id="zaunc"><path d="M661 202 L655 277 L634 307 L591 307 L591 280 A113 113 0 0 0 661 202 Z"/></clipPath></defs>
+      <defs><clipPath id="inf"><path d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/></clipPath><clipPath id="outc"><path clip-rule="evenodd" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z M661 202 L655 277 L634 307 L591 307 L591 280 A113 113 0 0 0 661 202 Z M158 303 H563 V315 H158 Z M351 286 H364 V303 H351 Z"/></clipPath><clipPath id="zaunc"><path d="M661 202 L655 277 L634 307 L591 307 L591 280 A113 113 0 0 0 661 202 Z"/></clipPath></defs>
       <g id="world">
-        <path class="hall" id="hallp" d="M30 6 H678 Q700 160 681 315 H30 Q4 160 30 6 Z"/>
+        <path class="hall" id="hallp" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z"/>
         <rect class="trib" x="160" y="8" width="520" height="6"/>
         <rect class="track" x="31" y="18" width="700" height="39"/>
         <path class="track" fill-rule="evenodd" d="M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/>
@@ -190,7 +191,7 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
         <g id="lanes" fill="none" stroke="none"></g>
         <g id="paint" fill="none"></g>
         <g>
-          <path class="ln" d="M30 6 H678 Q700 160 681 315 H30 Q4 160 30 6 Z"/>
+          <path class="hallwall" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z"/>
           <rect class="ln" x="31" y="18" width="700" height="39"/>
           <path class="ln thin" d="M31 24.5 H731 M31 31 H731 M31 37.5 H731 M31 44 H731 M31 50.5 H731"/>
           <path class="ln" d="M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z"/>
@@ -272,7 +273,7 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 "use strict";
 var NS="http://www.w3.org/2000/svg";
 var PEOPLE=[{n:"Joel",c:"#2B7BFF"},{n:"Arno",c:"#FFC914"},{n:"Patrick",c:"#A259FF"},{n:"Lukas",c:"#35E0F2"}];
-var KEY="putzplan-halle-v3";
+var KEY="putzplan-halle-v4";
 var W0=740,H0=322;
 var S={who:0,mode:"paint",brush:"all",view:"plan"};
 var notes=[];
@@ -322,9 +323,9 @@ rows(6,93,134,188,632,"innen-a","inf","Innenfeld, Seite zur Sprintgeraden","inf"
 rows(8,134,183,188,632,"innen-b","inf",function(k){return"Innenfeld, Sprintbahn "+(k+1)},"inf");
 rows(10,183,253,188,632,"innen-c","inf","Innenfeld, Seite zur Tribüne","inf");
 cols(4,119,150,60,314,"anlauf","anlauf",function(k){return"Anlaufbahn am Kopfende, Bahn "+(k+1)},null);
-cols(16,6,119,57,315,"kopf-aussen","out","Kopfende, Wurfbereich","outc");
-cols(17,150,268,57,315,"kopf-innen","out","Fläche zwischen Anlaufbahn und Rundbahn","outc");
-cols(21,552,697,57,315,"ende","out","Fläche hinter der Rundbahn","outc");
+cols(16,4,119,57,316,"kopf-aussen","out","Kopfende, Wurfbereich","outc");
+cols(17,150,268,57,316,"kopf-innen","out","Fläche zwischen Anlaufbahn und Rundbahn","outc");
+cols(22,552,704,57,316,"ende","out","Fläche hinter der Rundbahn","outc");
 rows(2,303,315,158,563,"tunnel","tunnel","Lauftunnel",null);
 cols(2,351,364,286,303,"gang","gang","Gang vom Lauftunnel in die Halle",null);
 cols(10,591,661,200,307,"zaun","zaun","Eingezäunter Bereich","zaunc");
