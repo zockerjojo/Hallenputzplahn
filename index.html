@@ -100,6 +100,8 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 .ln.thin{stroke-width:.45}
 .ln.dash{stroke-dasharray:3 2}
 .hallwall{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round}
+.gate{display:none}
+.color .gate{display:inline;fill:#FFFFFF;stroke:#10201A;stroke-width:.5;stroke-linejoin:round}
 .wall{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
 .fence{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:5 2.2;stroke-linejoin:round}
 .tag{font-family:var(--font-body);font-size:8.5px;fill:var(--ink-2);text-anchor:middle}
@@ -169,7 +171,7 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 
   <main class="map" id="map">
     <svg id="svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hallenplan von oben">
-      <defs><clipPath id="inf"><path d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/></clipPath><clipPath id="outc"><path clip-rule="evenodd" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z M661 202 L655 277 L634 307 L591 307 L591 280 A113 113 0 0 0 661 202 Z M158 303 H563 V315 H158 Z M351 286 H364 V303 H351 Z"/></clipPath><clipPath id="zaunc"><path d="M661 202 L655 277 L634 307 L591 307 L591 280 A113 113 0 0 0 661 202 Z"/></clipPath></defs>
+      <defs><clipPath id="inf"><path d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/></clipPath><clipPath id="outc"><path clip-rule="evenodd" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z M661 202 L655 277 L634 307 L591 307 L591 280 A113 113 0 0 0 661 202 Z M158 303 H563 V315 H158 Z M351 286 H364 V303 H351 Z M159 288.5 H351 V303 H159 Z M364 288.5 H563 V303 H364 Z"/></clipPath><clipPath id="zaunc"><path d="M661 202 L655 277 L634 307 L591 307 L591 280 A113 113 0 0 0 661 202 Z"/></clipPath></defs>
       <g id="world">
         <path class="hall" id="hallp" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z"/>
         <rect class="trib" x="160" y="8" width="520" height="6"/>
@@ -179,15 +181,15 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
         <rect class="track" x="119" y="60" width="31" height="254"/>
         <rect class="mat" x="117" y="66" width="35" height="40"/>
         <rect class="mat" x="12" y="160" width="87" height="76"/>
-        <rect class="track" x="205" y="134" width="322" height="49"/>
-        <path class="track" d="M234 108 H430 L444 102 H501 V126 H444 L430 118 H234 Z"/>
-        <rect class="sand" x="452" y="105" width="45" height="18"/>
-        <path class="track" d="M234 230 H430 L444 224 H501 V248 H444 L430 240 H234 Z"/>
-        <rect class="sand" x="452" y="227" width="45" height="18"/>
-        <rect class="track" x="297" y="196" width="312" height="10"/>
-        <rect class="track" x="297" y="209" width="312" height="10"/>
-        <rect class="mat" x="258" y="194" width="39" height="28"/>
-        <rect class="trib" x="161" y="289" width="58" height="13"/><rect class="trib" x="228" y="289" width="58" height="13"/><rect class="trib" x="295" y="289" width="58" height="13"/><rect class="trib" x="362" y="289" width="58" height="13"/><rect class="trib" x="429" y="289" width="58" height="13"/><rect class="trib" x="496" y="289" width="58" height="13"/>
+        <rect class="track" x="200" y="137" width="339" height="53"/>
+        <rect class="track" x="358" y="111" width="231" height="7.5"/>
+        <rect class="mat" x="314" y="98" width="44" height="33"/>
+        <rect class="track" x="252" y="201" width="311" height="13.5"/>
+        <rect class="sand" x="563" y="196" width="43" height="22"/>
+        <rect class="mat" x="250" y="100" width="63" height="31"/>
+        <rect class="mat" x="250" y="192" width="61" height="36.5"/>
+        <rect class="mat" x="314" y="192" width="43" height="36.5"/>
+        <rect class="trib" x="161" y="289.5" width="58" height="12.5"/><rect class="trib" x="228" y="289.5" width="58" height="12.5"/><rect class="trib" x="295" y="289.5" width="58" height="12.5"/><rect class="trib" x="362" y="289.5" width="58" height="12.5"/><rect class="trib" x="429" y="289.5" width="58" height="12.5"/><rect class="trib" x="496" y="289.5" width="58" height="12.5"/>
         <g id="lanes" fill="none" stroke="none"></g>
         <g id="paint" fill="none"></g>
         <g>
@@ -197,21 +199,25 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
           <path class="ln" d="M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z"/>
           <path class="ln thin" d="M268 65.5 H552 A107.5 107.5 0 0 1 552 280.5 H268 A107.5 107.5 0 0 1 268 65.5 Z"/> <path class="ln thin" d="M268 71 H552 A102 102 0 0 1 552 275 H268 A102 102 0 0 1 268 71 Z"/> <path class="ln thin" d="M268 76.5 H552 A96.5 96.5 0 0 1 552 269.5 H268 A96.5 96.5 0 0 1 268 76.5 Z"/> <path class="ln thin" d="M268 82 H552 A91 91 0 0 1 552 264 H268 A91 91 0 0 1 268 82 Z"/> <path class="ln thin" d="M268 87.5 H552 A85.5 85.5 0 0 1 552 258.5 H268 A85.5 85.5 0 0 1 268 87.5 Z"/>
           <path class="ln" d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/>
-          <rect class="ln" x="205" y="134" width="322" height="49"/>
-          <path class="ln thin" d="M205 140.125 H527 M205 146.25 H527 M205 152.375 H527 M205 158.5 H527 M205 164.625 H527 M205 170.75 H527 M205 176.875 H527"/>
+          <rect class="ln" x="200" y="137" width="339" height="53"/>
+          <path class="ln thin" d="M200 143.625 H539 M200 150.25 H539 M200 156.875 H539 M200 163.5 H539 M200 170.125 H539 M200 176.75 H539 M200 183.375 H539 M217 137 V190"/>
           <rect class="ln" x="119" y="60" width="31" height="254"/>
           <path class="ln thin" d="M126.75 60 V314 M134.5 60 V314 M142.25 60 V314"/>
           <rect class="ln dash" x="117" y="66" width="35" height="40"/>
           <rect class="ln dash" x="12" y="160" width="87" height="76"/>
           <circle class="ln dash" cx="32" cy="126" r="6"/>
-          <path class="ln dash" d="M234 108 H430 L444 102 H501 V126 H444 L430 118 H234 Z"/>
-          <path class="ln dash" d="M234 230 H430 L444 224 H501 V248 H444 L430 240 H234 Z"/>
-          <rect class="ln dash" x="297" y="196" width="312" height="10"/>
-          <rect class="ln dash" x="297" y="209" width="312" height="10"/>
-          <rect class="ln dash" x="258" y="194" width="39" height="28"/>
+          <rect class="ln" x="358" y="111" width="231" height="7.5"/>
+          <rect class="ln" x="314" y="98" width="44" height="33"/>
+          <rect class="ln" x="252" y="201" width="311" height="13.5"/>
+          <path class="ln thin" d="M252 207.75 H563"/>
+          <rect class="ln" x="563" y="196" width="43" height="22"/>
+          <rect class="ln" x="250" y="100" width="63" height="31"/>
+          <rect class="ln" x="250" y="192" width="61" height="36.5"/>
+          <rect class="ln" x="314" y="192" width="43" height="36.5"/>
+          <path class="gate" d="M371.5 111 L375.3 109 V113 Z"/><path class="gate" d="M371.5 118.5 L375.3 116.5 V120.5 Z"/><path class="gate" d="M398.6 111 L402.4 109 V113 Z"/><path class="gate" d="M398.6 118.5 L402.4 116.5 V120.5 Z"/><path class="gate" d="M425.7 111 L429.5 109 V113 Z"/><path class="gate" d="M425.7 118.5 L429.5 116.5 V120.5 Z"/><path class="gate" d="M452.2 111 L456 109 V113 Z"/><path class="gate" d="M452.2 118.5 L456 116.5 V120.5 Z"/><path class="gate" d="M441.1 201 L437.3 199 V203 Z"/><path class="gate" d="M441.1 207.75 L437.3 205.75 V209.75 Z"/><path class="gate" d="M467.9 201 L464.1 199 V203 Z"/><path class="gate" d="M467.9 207.75 L464.1 205.75 V209.75 Z"/><path class="gate" d="M494.7 201 L490.9 199 V203 Z"/><path class="gate" d="M494.7 207.75 L490.9 205.75 V209.75 Z"/><path class="gate" d="M521.5 201 L517.7 199 V203 Z"/><path class="gate" d="M521.5 207.75 L517.7 205.75 V209.75 Z"/><path class="gate" d="M548.3 201 L544.5 199 V203 Z"/><path class="gate" d="M548.3 207.75 L544.5 205.75 V209.75 Z"/>
         </g>
         <g>
-          <path class="wall" d="M158 303 H351 V289 M364 289 V303 H563"/>
+          <rect class="wall" x="159" y="288.5" width="192" height="14.5"/><rect class="wall" x="364" y="288.5" width="199" height="14.5"/>
           <path class="fence" d="M661 202 L655 277 L634 307 L591 307 L591 280"/>
           <text class="tag" x="676" y="246">Zaun</text>
           <text class="tag" x="250" y="311.6" style="font-size:6.5px">Lauftunnel</text>
@@ -258,8 +264,8 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
   <div class="shade" id="sh-reset">
     <div class="sheet" role="dialog" aria-labelledby="h-reset">
       <h2 id="h-reset">Alle Flächen auf offen setzen?</h2>
-      <p>Alle eingemalten Flächen verschwinden. Das lässt sich nicht rückgängig machen.</p>
-      <label class="chk" for="reset-notes"><input type="checkbox" id="reset-notes"> Notizen auch löschen</label>
+      <p>Alle eingemalten Flächen verschwinden, bei allen Personen. Das lässt sich nicht rückgängig machen. Die Notizen bleiben erhalten.</p>
+      <p id="reset-warn" class="err" aria-live="polite"></p>
       <div class="acts">
         <button class="ghost" id="reset-cancel">Abbrechen</button>
         <button class="primary danger" id="reset-go">Zurücksetzen</button>
@@ -273,7 +279,7 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 "use strict";
 var NS="http://www.w3.org/2000/svg";
 var PEOPLE=[{n:"Joel",c:"#2B7BFF"},{n:"Arno",c:"#FFC914"},{n:"Patrick",c:"#A259FF"},{n:"Lukas",c:"#35E0F2"}];
-var KEY="putzplan-halle-v4";
+var KEY="putzplan-halle-v7";
 var W0=740,H0=322;
 var S={who:0,mode:"paint",brush:"all",view:"plan"};
 var notes=[];
@@ -296,6 +302,7 @@ function region(p){
   if(r<=80)return"inf";
   if(r<=113)return"track";
   if(p.x>=158&&p.x<=563&&p.y>=303&&p.y<=315)return"tunnel";
+  if(p.y>=288.5&&p.y<303&&((p.x>=159&&p.x<=351)||(p.x>=364&&p.x<=563)))return"lager";
   if(p.x>=351&&p.x<=364&&p.y>=286&&p.y<303)return"gang";
   if(inPoly(p,ZAUN))return"zaun";
   if(p.x>=119&&p.x<=150&&p.y>=57)return"anlauf";
@@ -310,24 +317,30 @@ function addLane(d,closed,w,grp,reg,label,clip){
   paintG.appendChild(g);
   var gi=gcount[grp]||0;gcount[grp]=gi+1;
   var l={d:d,closed:closed,w:w,grp:grp,gi:gi,reg:reg,label:label,L:L,pts:pts,n:n,ps:L/n,st:new Array(n).fill(null),g:g,valid:null};
-  if(clip){l.valid=[];for(var i=0;i<n;i++){var c=el.getPointAtLength((i+0.5)*l.ps);l.valid.push(region(c)===reg)}}
+  if(!closed){var P0=el.getPointAtLength(0),P1=el.getPointAtLength(L);l.p0={x:P0.x,y:P0.y};l.ux=(P1.x-P0.x)/L;l.uy=(P1.y-P0.y)/L}
+  if(clip){l.valid=[];for(var i=0;i<n;i++){var ok=false;
+    for(var a=0;a<=4&&!ok;a++){var c=el.getPointAtLength((i+a/4)*l.ps);
+      for(var o=-1;o<=1;o++){if(region({x:c.x-l.uy*o*w*0.45,y:c.y+l.ux*o*w*0.45})===reg){ok=true;break}}}
+    l.valid.push(ok)}}
   lanes.push(l);return l;
 }
 function rows(n,y0,y1,xa,xb,grp,reg,label,clip){var h=(y1-y0)/n;for(var k=0;k<n;k++){var y=(y0+h*(k+0.5)).toFixed(2);addLane("M"+xa+" "+y+" H"+xb,false,h,grp,reg,typeof label==="function"?label(k):label,clip)}}
 function cols(n,x0,x1,ya,yb,grp,reg,label,clip){var w=(x1-x0)/n;for(var k=0;k<n;k++){var x=(x0+w*(k+0.5)).toFixed(2);addLane("M"+x+" "+ya+" V"+yb,false,w,grp,reg,typeof label==="function"?label(k):label,clip)}}
 rows(6,18,57,31,731,"gerade","gerade",function(k){return"Sprintgerade, Bahn "+(k+1)},null);
+rows(1,57,60,268,552,"gerade","out","Streifen zwischen Sprintgerade und Rundbahn","outc");
 [110.25,104.75,99.25,93.75,88.25,82.75].forEach(function(r,i){
   addLane("M268 "+(173-r)+" H552 A"+r+" "+r+" 0 0 1 552 "+(173+r)+" H268 A"+r+" "+r+" 0 0 1 268 "+(173-r)+" Z",true,5.5,"rund","track","Rundbahn, Bahn "+(6-i),null);
 });
-rows(6,93,134,188,632,"innen-a","inf","Innenfeld, Seite zur Sprintgeraden","inf");
-rows(8,134,183,188,632,"innen-b","inf",function(k){return"Innenfeld, Sprintbahn "+(k+1)},"inf");
-rows(10,183,253,188,632,"innen-c","inf","Innenfeld, Seite zur Tribüne","inf");
+rows(6,93,137,188,632,"innen-a","inf","Innenfeld, Seite zur Sprintgeraden","inf");
+rows(8,137,190,188,632,"innen-b","inf",function(k){return"Innenfeld, Sprintbahn "+(k+1)},"inf");
+rows(9,190,253,188,632,"innen-c","inf","Innenfeld, Seite zur Tribüne","inf");
 cols(4,119,150,60,314,"anlauf","anlauf",function(k){return"Anlaufbahn am Kopfende, Bahn "+(k+1)},null);
 cols(16,4,119,57,316,"kopf-aussen","out","Kopfende, Wurfbereich","outc");
 cols(17,150,268,57,316,"kopf-innen","out","Fläche zwischen Anlaufbahn und Rundbahn","outc");
 cols(22,552,704,57,316,"ende","out","Fläche hinter der Rundbahn","outc");
 rows(2,303,315,158,563,"tunnel","tunnel","Lauftunnel",null);
 cols(2,351,364,286,303,"gang","gang","Gang vom Lauftunnel in die Halle",null);
+rows(1,286,288.5,159,563,"spalt","out","Spalt zwischen Rundbahn und Lager","outc");
 cols(10,591,661,200,307,"zaun","zaun","Eingezäunter Bereich","zaunc");
 function near(l,p){var b=null,bd=1e9;for(var i=0;i<l.pts.length;i++){var q=l.pts[i],d=(q.x-p.x)*(q.x-p.x)+(q.y-p.y)*(q.y-p.y);if(d<bd){bd=d;b=q}}return{s:b.s,dist:Math.sqrt(bd)}}
 function key(v){return v?v.p+"|"+v.d:""}
@@ -375,16 +388,6 @@ function load(){
     return true;
   }catch(e){return false}
 }
-function demo(){
-  lanes.forEach(function(l){
-    if(l.grp==="rund")fill(l,284,284+(l.L-568)/2-0.1,{p:0,d:dstr(0)});
-    if(l.grp==="innen-b")fill(l,0,200,{p:2,d:dstr(1)});
-    if(l.grp==="kopf-innen")fill(l,0,130,{p:1,d:dstr(1)});
-    if(l.grp==="gerade")fill(l,0,260,{p:3,d:dstr(0)});
-  });
-  notes=[{x:277,y:208,t:"Matte liegt noch, nicht drunter gewischt",by:"Arno",d:dstr(1)}];
-}
-
 /* ---------- Ansicht: Drehen, Zoomen, Schieben ---------- */
 var V={z:1,cx:W0/2,cy:H0/2},portrait=false,OW=W0,OH=H0;
 function orient(){
@@ -436,7 +439,9 @@ function strokeMove(e){
   if(!act.items){lockStroke(p);if(!act.items)return}
   var v=S.mode==="paint"?{p:S.who,d:dstr(0)}:null;
   act.items.forEach(function(it){
-    var l=it.l,s=near(l,p).s,d=s-it.prev;
+    var l=it.l;
+    if(!l.closed){var t=(p.x-l.p0.x)*l.ux+(p.y-l.p0.y)*l.uy;if(t<-1||t>l.L+1){it.prev=t<0?0:l.L;return}}
+    var s=near(l,p).s,d=s-it.prev;
     if(l.closed){if(d>l.L/2)d-=l.L;if(d<-l.L/2)d+=l.L}
     fill(l,it.prev,it.prev+d,v);it.prev=s;render(l);
   });
@@ -558,15 +563,18 @@ $("open-notes").addEventListener("click",function(){openNotes(-1)});
 $("notes-close").addEventListener("click",function(){show("sh-notes",false)});
 
 /* ---------- Zurücksetzen ---------- */
-$("open-reset").addEventListener("click",function(){$("reset-notes").checked=false;show("sh-reset",true)});
-$("reset-cancel").addEventListener("click",function(){show("sh-reset",false)});
+var armed=false;
+function disarm(){armed=false;$("reset-go").textContent="Zurücksetzen";$("reset-warn").textContent=""}
+$("open-reset").addEventListener("click",function(){disarm();show("sh-reset",true)});
+$("reset-cancel").addEventListener("click",function(){disarm();show("sh-reset",false)});
 $("reset-go").addEventListener("click",function(){
+  if(!armed){armed=true;$("reset-go").textContent="Wirklich zurücksetzen";$("reset-warn").textContent="Zur Sicherheit: Drück den roten Knopf ein zweites Mal.";return}
+  disarm();
   lanes.forEach(function(l){l.st.fill(null);render(l)});
-  if($("reset-notes").checked){notes=[];drawPins()}
-  progress();save();show("sh-reset",false);say("Alle Flächen stehen wieder auf offen.",false);
+  progress();save();show("sh-reset",false);say("Alle Flächen stehen wieder auf offen. Die Notizen sind noch da.",false);
 });
 ["sh-edit","sh-notes","sh-reset"].forEach(function(id){
-  $(id).addEventListener("click",function(e){if(e.target===$(id)){show(id,false);if(id==="sh-edit")pend=null}});
+  $(id).addEventListener("click",function(e){if(e.target===$(id)){show(id,false);if(id==="sh-edit")pend=null;if(id==="sh-reset")disarm()}});
 });
 
 /* ---------- Bedienleiste ---------- */
@@ -595,10 +603,9 @@ document.querySelectorAll(".b[data-k]").forEach(function(b){
 
 /* ---------- Start ---------- */
 var had=load();
-if(!had)demo();
 lanes.forEach(render);progress();syncButtons();
 orient();drawPins();
-say(had?HINT[S.mode]:"Beispieldaten zum Ausprobieren. Zurücksetzen leert den Plan.",false);
+say(HINT[S.mode],false);
 if(window.ResizeObserver){new ResizeObserver(orient).observe(map)}else{window.addEventListener("resize",orient)}
 })();
 </script>
