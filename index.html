@@ -219,8 +219,7 @@ textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
         <g>
           <rect class="wall" x="159" y="288.5" width="192" height="14.5"/><rect class="wall" x="364" y="288.5" width="199" height="14.5"/>
           <path class="fence" d="M661 202 L655 277 L634 307 L591 307 L591 280"/>
-          <text class="tag" x="676" y="246">Zaun</text>
-          <text class="tag" x="250" y="311.6" style="font-size:6.5px">Lauftunnel</text>
+          <path class="gate" d="M479.5 71.0 L483.3 69.0 L483.3 73.0 Z"/><path class="gate" d="M479.5 65.5 L483.3 63.5 L483.3 67.5 Z"/><path class="gate" d="M540.3 93.0 L544.1 91.0 L544.1 95.0 Z"/><path class="gate" d="M540.3 87.5 L544.1 85.5 L544.1 89.5 Z"/><path class="gate" d="M540.3 82.0 L544.1 80.0 L544.1 84.0 Z"/><path class="gate" d="M268.3 93.0 L272.1 91.0 L272.1 95.0 Z"/><path class="gate" d="M268.3 87.5 L272.1 85.5 L272.1 89.5 Z"/><path class="gate" d="M268.3 82.0 L272.1 80.0 L272.1 84.0 Z"/><path class="gate" d="M284.3 253.0 L280.5 255.0 L280.5 251.0 Z"/><path class="gate" d="M284.3 258.5 L280.5 260.5 L280.5 256.5 Z"/><path class="gate" d="M284.3 264.0 L280.5 266.0 L280.5 262.0 Z"/><path class="gate" d="M284.3 275.0 L280.5 277.0 L280.5 273.0 Z"/><path class="gate" d="M284.3 280.5 L280.5 282.5 L280.5 278.5 Z"/><path class="gate" d="M553.6 253.0 L549.8 255.0 L549.8 251.0 Z"/><path class="gate" d="M553.6 258.5 L549.8 260.5 L549.8 256.5 Z"/><path class="gate" d="M553.6 264.0 L549.8 266.0 L549.8 262.0 Z"/><path class="gate" d="M553.6 275.0 L549.8 277.0 L549.8 273.0 Z"/><path class="gate" d="M553.6 280.5 L549.8 282.5 L549.8 278.5 Z"/><path class="gate" d="M209.4 89.5 L211.4 85.7 L213.7 89.0 Z"/><path class="gate" d="M206.3 84.9 L208.4 81.2 L210.6 84.5 Z"/><path class="gate" d="M169.6 200.1 L166.8 197.0 L170.6 196.0 Z"/><path class="gate" d="M164.3 201.5 L161.4 198.3 L165.3 197.3 Z"/><path class="gate" d="M647.2 209.6 L647.6 213.9 L643.9 212.4 Z"/><path class="gate" d="M652.3 211.7 L652.7 215.9 L649.0 214.4 Z"/>
         </g>
         <g id="pins"></g>
       </g>
@@ -424,7 +423,7 @@ $("z-fit").addEventListener("click",function(){V.z=1;V.cx=OW/2;V.cy=OH/2;applyVi
 svg.addEventListener("wheel",function(e){e.preventDefault();zoomAt(e.clientX,e.clientY,V.z*(e.deltaY<0?1.15:1/1.15))},{passive:false});
 
 /* ---------- Finger und Maus ---------- */
-var ptrs=new Map(),gesture=null,act=null,pan=null,pinch=null;
+var ptrs=new Map(),gesture=null,act=null,pan=null,pinch=null,nd=null;
 function hit(p){var reg=region(p);if(!reg)return null;var best=null,bd=1e9;lanes.forEach(function(l){if(l.reg!==reg)return;var n=near(l,p);if(n.dist<=l.w/2+2.5&&n.dist<bd){bd=n.dist;best={l:l,s:n.s}}});return best}
 function lockStroke(p){
   var h=hit(p);if(!h)return;
@@ -460,7 +459,7 @@ function tap(x,y){
   var p=toWorld(x,y);
   for(var i=notes.length-1;i>=0;i--){if(Math.hypot(notes[i].x-p.x,notes[i].y-p.y)<13){openNotes(i);return}}
   if(S.mode==="note"){
-    if(!region(p)){say("Tipp auf eine Stelle in der Halle.",false);return}
+    p={x:clamp(p.x,0,W0),y:clamp(p.y,0,H0)};
     openEdit(p);return;
   }
   var h=hit(p);
@@ -474,7 +473,8 @@ svg.addEventListener("pointerdown",function(e){
   ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(ptrs.size===2){
     if(gesture==="stroke")cancelStroke();
-    pan=null;gesture="pinch";
+    if(nd&&nd.moved)save();
+    pan=null;nd=null;gesture="pinch";
     var m=midDist();pinch={A:toOuter(m.x,m.y),d0:m.d,z0:V.z};return;
   }
   if(ptrs.size>2)return;
@@ -482,7 +482,10 @@ svg.addEventListener("pointerdown",function(e){
     gesture="stroke";act={sx:e.clientX,sy:e.clientY,moved:false,items:null,changed:false};
     lockStroke(toWorld(e.clientX,e.clientY));
   }else{
-    gesture="pan";pan={sx:e.clientX,sy:e.clientY,moved:false,A:toOuter(e.clientX,e.clientY)};
+    var w0=toWorld(e.clientX,e.clientY),ni=-1;
+    for(var i=notes.length-1;i>=0;i--){if(Math.hypot(notes[i].x-w0.x,notes[i].y-w0.y)<13){ni=i;break}}
+    if(ni>=0){gesture="note";nd={i:ni,sx:e.clientX,sy:e.clientY,moved:false}}
+    else{gesture="pan";pan={sx:e.clientX,sy:e.clientY,moved:false,A:toOuter(e.clientX,e.clientY)}}
   }
 });
 svg.addEventListener("pointermove",function(e){
@@ -492,6 +495,13 @@ svg.addEventListener("pointermove",function(e){
     var m=midDist();V.z=pinch.z0*m.d/pinch.d0;applyView();
     var b=toOuter(m.x,m.y);V.cx+=pinch.A.x-b.x;V.cy+=pinch.A.y-b.y;applyView();
   }else if(gesture==="stroke"&&act){strokeMove(e)}
+  else if(gesture==="note"&&nd){
+    if(!nd.moved&&Math.hypot(e.clientX-nd.sx,e.clientY-nd.sy)<6)return;
+    nd.moved=true;
+    var wn=toWorld(e.clientX,e.clientY);
+    notes[nd.i].x=Math.round(clamp(wn.x,0,W0));notes[nd.i].y=Math.round(clamp(wn.y,0,H0));drawPins();
+    say("Notiz "+(nd.i+1)+" wird verschoben.",false);
+  }
   else if(gesture==="pan"&&pan){
     if(!pan.moved&&Math.hypot(e.clientX-pan.sx,e.clientY-pan.sy)<6)return;
     pan.moved=true;
@@ -510,6 +520,10 @@ function up(e){
   }else if(gesture==="pan"&&pan){
     if(!pan.moved&&e.type==="pointerup")tap(e.clientX,e.clientY);
     pan=null;
+  }else if(gesture==="note"&&nd){
+    if(!nd.moved&&e.type==="pointerup")tap(e.clientX,e.clientY);
+    else if(nd.moved){save();say("Notiz "+(nd.i+1)+" liegt jetzt hier.",true)}
+    nd=null;
   }
   gesture=null;
 }
@@ -580,8 +594,8 @@ $("reset-go").addEventListener("click",function(){
 /* ---------- Bedienleiste ---------- */
 var HINT={paint:"Mit dem Finger über einen Bereich ziehen. Zwei Finger zoomen und schieben.",
   erase:"Über eine Fläche ziehen, um sie wieder auf offen zu setzen.",
-  note:"Auf die Stelle im Plan tippen, zu der die Notiz gehört.",
-  move:"Mit einem Finger den Plan schieben. Antippen zeigt, wer geputzt hat."};
+  note:"Auf eine Stelle tippen, um eine Notiz zu setzen. Eine Notiz anfassen und ziehen versetzt sie.",
+  move:"Eine Notiz anfassen und ziehen versetzt sie. Daneben ziehen schiebt den Plan."};
 function syncButtons(){
   document.querySelectorAll(".b[data-k]").forEach(function(b){b.setAttribute("aria-pressed",String(S[b.dataset.k]===b.dataset.v||(b.dataset.k==="who"&&S.who===+b.dataset.v)))});
   map.classList.toggle("color",S.view==="color");
