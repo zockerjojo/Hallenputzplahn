@@ -72,6 +72,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 .ghost.danger{color:var(--danger)}
 .shade{position:absolute;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:5}
 .shade.open{display:flex}
+.shade.gate{background:var(--bg);align-items:center;padding:16px}
+.shade.gate .sheet{max-height:none;width:100%;max-width:460px;border:1px solid var(--line);border-radius:16px}
 .sheet{width:100%;max-width:520px;max-height:80%;overflow:auto;background:var(--panel);border-radius:16px 16px 0 0;padding:16px;display:flex;flex-direction:column;gap:12px;border:1px solid var(--line);border-bottom:0}
 .sheet h2{font-family:var(--font-display);font-size:22px;font-weight:600;margin:0;text-transform:uppercase;text-wrap:balance}
 .sheet p{margin:0;font-size:15px;line-height:1.4;color:var(--ink-2)}
@@ -274,7 +276,7 @@ textarea:focus-visible,.tf:focus-visible{outline:3px solid var(--accent);outline
       <h2 id="h-code">Live-Abgleich</h2>
       <p id="code-state"></p>
       <div id="code-row" style="display:flex;flex-direction:column;gap:8px">
-        <p>Zugangscode der Hausmeister. Er ist auf allen Handys gleich.</p>
+        <p id="code-hint">Zugangscode der Hausmeister. Er ist auf allen Handys gleich.</p>
         <input class="tf" id="code-in" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="40" aria-label="Zugangscode">
         <div class="err" id="code-err" aria-live="polite"></div>
         <button class="ghost" id="code-link" type="button" style="flex:none">Link für Kollegen kopieren</button>
@@ -516,10 +518,15 @@ function startSync(){
   }).catch(function(e){try{console.error(e)}catch(x){}if(sync.state!=="denied")setState("fail")});
 }
 function openCode(msg){
-  $("code-in").value=getCode();$("code-err").textContent=msg||"";
-  $("code-state").textContent=STATE_LONG[sync.state]||"";
+  var gate=sync.state==="nocode"||sync.state==="denied";
+  $("code-in").value=gate?"":getCode();$("code-err").textContent=msg||"";
+  $("code-state").textContent=gate?"Bitte den Zugangscode für die Hallenreinigung eingeben. Das Gerät merkt sich den Code, bis ein neuer Code hinterlegt wird.":(STATE_LONG[sync.state]||"");
   $("code-row").style.display=sync.state==="none"?"none":"flex";
   $("code-go").style.display=sync.state==="none"?"none":"";
+  $("code-cancel").style.display=gate?"none":"";
+  $("code-link").style.display=gate?"none":"";
+  $("code-hint").style.display=gate?"none":"";
+  $("sh-code").classList.toggle("gate",gate);
   show("sh-code",true);
 }
 $("live").addEventListener("click",function(){openCode("")});
@@ -749,7 +756,7 @@ $("reset-go").addEventListener("click",function(){
   progress();save();show("sh-reset",false);say("Alle Flächen stehen wieder auf offen. Die Notizen sind noch da.",false);
 });
 ["sh-edit","sh-notes","sh-reset","sh-code"].forEach(function(id){
-  $(id).addEventListener("click",function(e){if(e.target===$(id)){show(id,false);if(id==="sh-edit")pend=null;if(id==="sh-reset")disarm()}});
+  $(id).addEventListener("click",function(e){if(e.target===$(id)&&!(id==="sh-code"&&$(id).classList.contains("gate"))){show(id,false);if(id==="sh-edit")pend=null;if(id==="sh-reset")disarm()}});
 });
 
 /* ---------- Bedienleiste ---------- */
