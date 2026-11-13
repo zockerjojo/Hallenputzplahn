@@ -240,7 +240,7 @@ textarea:focus-visible,.tf:focus-visible{outline:3px solid var(--accent);outline
 
   <main class="map" id="map">
     <svg id="svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hallenplan von oben">
-      <defs><clipPath id="inf"><path d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/></clipPath><clipPath id="outc"><path clip-rule="evenodd" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z M661 202 L655 277 L640 296 L597 296 L597 276.65 A113 113 0 0 0 661 202 Z M158 303 H563 V315 H158 Z M351 286 H364 V303 H351 Z M159 288.5 H351 V303 H159 Z M364 288.5 H563 V303 H364 Z"/></clipPath><clipPath id="zaunc"><path d="M661 202 L655 277 L640 296 L597 296 L597 276.65 A113 113 0 0 0 661 202 Z"/></clipPath></defs>
+      <defs><clipPath id="inf"><path d="M268 93 H552 A80 80 0 0 1 552 253 H268 A80 80 0 0 1 268 93 Z"/></clipPath><clipPath id="outc"><path clip-rule="evenodd" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z M268 60 H552 A113 113 0 0 1 552 286 H268 A113 113 0 0 1 268 60 Z M661 202 L655 277 L640 296 L597 296 L597 276.65 A113 113 0 0 0 661 202 Z M158 303 H563 V315 H158 Z M351 286 H364 V303 H351 Z M159 288.5 H351 V303 H159 Z M364 288.5 H563 V303 H364 Z"/></clipPath><clipPath id="noblk"><path clip-rule="evenodd" d="M-60 -60 H820 V400 H-60 Z M159 288.5 h192 v14.5 h-192 Z M364 288.5 h199 v14.5 h-199 Z M12 160 h87 v76 h-87 Z M117 66 h35 v40 h-35 Z M563 196 h43 v22 h-43 Z"/></clipPath><clipPath id="zaunc"><path d="M661 202 L655 277 L640 296 L597 296 L597 276.65 A113 113 0 0 0 661 202 Z"/></clipPath></defs>
       <g id="world">
         <path class="hall" id="hallp" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z"/>
         <rect class="trib" x="160" y="8" width="520" height="6"/>
@@ -260,7 +260,7 @@ textarea:focus-visible,.tf:focus-visible{outline:3px solid var(--accent);outline
         <rect class="mat" x="314" y="192" width="43" height="36.5"/>
         <rect class="trib" x="161" y="289.5" width="58" height="12.5"/><rect class="trib" x="228" y="289.5" width="58" height="12.5"/><rect class="trib" x="295" y="289.5" width="58" height="12.5"/><rect class="trib" x="362" y="289.5" width="58" height="12.5"/><rect class="trib" x="429" y="289.5" width="58" height="12.5"/><rect class="trib" x="496" y="289.5" width="58" height="12.5"/>
         <g id="lanes" fill="none" stroke="none"></g>
-        <g id="paint" fill="none"></g>
+        <g id="paint" fill="none" clip-path="url(#noblk)"></g>
         <g>
           <path class="hallwall" d="M35 6 H675 L687 16 H737 V64 H697 Q703 160 694 255 L681 316 H31 L17 286 L14 226 Q-2 130 19 25 Z"/>
           <rect class="ln" x="31" y="18" width="700" height="39"/>
@@ -290,7 +290,7 @@ textarea:focus-visible,.tf:focus-visible{outline:3px solid var(--accent);outline
           <path class="fence" d="M661 202 L655 277 L640 296 L597 296 M597 284 L597 276.65"/><path class="zgate" d="M597 296 L589 289"/><path class="wpan" d="M24 84.6 H80 V87.4 H26.8 V112 H24 Z"/><rect class="wpan" x="99" y="84.6" width="12" height="2.8"/><circle class="pil" cx="114" cy="80.5" r="2.6"/><circle class="pil" cx="676" cy="78" r="2.6"/><circle class="pil" cx="676" cy="103" r="2.6"/><circle class="pil" cx="676" cy="128" r="2.6"/><circle class="pil" cx="676" cy="153" r="2.6"/><circle class="pil" cx="676" cy="178" r="2.6"/><circle class="pil" cx="661" cy="202" r="2.6"/><circle class="pil" cx="658" cy="240" r="2.6"/><circle class="pil" cx="655" cy="277" r="2.6"/><circle class="pil" cx="640" cy="296" r="2.6"/><circle class="pil" cx="618.5" cy="296" r="2.6"/><circle class="pil" cx="597" cy="296" r="2.6"/>
           <path class="gate" d="M479.5 71.0 L483.3 69.0 L483.3 73.0 Z"/><path class="gate" d="M479.5 65.5 L483.3 63.5 L483.3 67.5 Z"/><path class="gate" d="M540.3 93.0 L544.1 91.0 L544.1 95.0 Z"/><path class="gate" d="M540.3 87.5 L544.1 85.5 L544.1 89.5 Z"/><path class="gate" d="M540.3 82.0 L544.1 80.0 L544.1 84.0 Z"/><path class="gate" d="M268.3 93.0 L272.1 91.0 L272.1 95.0 Z"/><path class="gate" d="M268.3 87.5 L272.1 85.5 L272.1 89.5 Z"/><path class="gate" d="M268.3 82.0 L272.1 80.0 L272.1 84.0 Z"/><path class="gate" d="M284.3 253.0 L280.5 255.0 L280.5 251.0 Z"/><path class="gate" d="M284.3 258.5 L280.5 260.5 L280.5 256.5 Z"/><path class="gate" d="M284.3 264.0 L280.5 266.0 L280.5 262.0 Z"/><path class="gate" d="M284.3 275.0 L280.5 277.0 L280.5 273.0 Z"/><path class="gate" d="M284.3 280.5 L280.5 282.5 L280.5 278.5 Z"/><path class="gate" d="M553.6 253.0 L549.8 255.0 L549.8 251.0 Z"/><path class="gate" d="M553.6 258.5 L549.8 260.5 L549.8 256.5 Z"/><path class="gate" d="M553.6 264.0 L549.8 266.0 L549.8 262.0 Z"/><path class="gate" d="M553.6 275.0 L549.8 277.0 L549.8 273.0 Z"/><path class="gate" d="M553.6 280.5 L549.8 282.5 L549.8 278.5 Z"/><path class="gate" d="M209.4 89.5 L211.4 85.7 L213.7 89.0 Z"/><path class="gate" d="M206.3 84.9 L208.4 81.2 L210.6 84.5 Z"/><path class="gate" d="M169.6 200.1 L166.8 197.0 L170.6 196.0 Z"/><path class="gate" d="M164.3 201.5 L161.4 198.3 L165.3 197.3 Z"/><path class="gate" d="M647.2 209.6 L647.6 213.9 L643.9 212.4 Z"/><path class="gate" d="M652.3 211.7 L652.7 215.9 L649.0 214.4 Z"/>
         </g>
-        <g id="free"></g>
+        <g id="free" clip-path="url(#noblk)"></g>
         <g id="pins"></g>
       </g>
     </svg>
@@ -387,7 +387,10 @@ var lanes=[],hallEl=$("hallp"),gcount={};
 function inHall(p){try{var pt=svg.createSVGPoint();pt.x=p.x;pt.y=p.y;return hallEl.isPointInFill(pt)}catch(e){return p.x>=6&&p.x<=697&&p.y>=6&&p.y<=315}}
 var ZAUN=[[661,202],[655,277],[640,296],[597,296],[597,276.65],[620,264],[645,238]];
 function inPoly(p,q){var c=false;for(var i=0,j=q.length-1;i<q.length;j=i++){var a=q[i],b=q[j];if((a[1]>p.y)!==(b[1]>p.y)&&p.x<(b[0]-a[0])*(p.y-a[1])/(b[1]-a[1])+a[0])c=!c}return c}
+var BLOCK=[[159, 288.5, 192, 14.5], [364, 288.5, 199, 14.5], [12, 160, 87, 76], [117, 66, 35, 40], [563, 196, 43, 22]];
+function blocked(p){for(var i=0;i<BLOCK.length;i++){var b=BLOCK[i];if(p.x>=b[0]&&p.x<=b[0]+b[2]&&p.y>=b[1]&&p.y<=b[1]+b[3])return true}return false}
 function region(p){
+  if(blocked(p))return null;
   if(p.x>=31&&p.x<=731&&p.y>=18&&p.y<=57)return"gerade";
   if(!inHall(p))return null;
   var dx=p.x<268?268-p.x:p.x>552?p.x-552:0,r=Math.hypot(dx,p.y-173);
@@ -410,7 +413,7 @@ function addLane(d,closed,w,grp,reg,label,clip){
   var gi=gcount[grp]||0;gcount[grp]=gi+1;
   var l={id:grp+"_"+gi,d:d,closed:closed,w:w,grp:grp,gi:gi,reg:reg,label:label,L:L,pts:pts,n:n,ps:L/n,st:new Array(n).fill(null),g:g,valid:null};
   if(!closed){var P0=el.getPointAtLength(0),P1=el.getPointAtLength(L);l.p0={x:P0.x,y:P0.y};l.ux=(P1.x-P0.x)/L;l.uy=(P1.y-P0.y)/L}
-  if(clip){l.valid=[];for(var i=0;i<n;i++){var ok=false;
+  if(clip||!closed){l.valid=[];for(var i=0;i<n;i++){var ok=false;
     for(var a=0;a<=4&&!ok;a++){var c=el.getPointAtLength((i+a/4)*l.ps);
       for(var o=-1;o<=1;o++){if(region({x:c.x-l.uy*o*w*0.45,y:c.y+l.ux*o*w*0.45})===reg){ok=true;break}}}
     l.valid.push(ok)}}
@@ -752,8 +755,25 @@ svg.addEventListener("wheel",function(e){e.preventDefault();zoomAt(e.clientX,e.c
 var ptrs=new Map(),gesture=null,act=null,pan=null,pinch=null,nd=null;
 function orPen(l){if(l.closed||l.ux===undefined)return 0;var vert=Math.abs(l.uy)>Math.abs(l.ux);if(portrait)vert=!vert;return (S.dir==="down")!==vert?6:0}
 function hit(p){var reg=region(p);if(!reg)return null;var best=null,bd=1e9;lanes.forEach(function(l){if(l.reg!==reg)return;var n=near(l,p);if(n.dist<=l.w/2+2.5&&n.dist+orPen(l)<bd){bd=n.dist+orPen(l);best={l:l,s:n.s}}});return best}
+var CROSS={"kopf-aussen":1,"kopf-innen":1,"ende":1,"zaun":1,"innen-a":1,"innen-c":1};
+function crossMove(p,v){
+  var c=act.cross,best=null,bd=1e9;
+  lanes.forEach(function(l){if(l.grp!==c.grp)return;var t=(p.x-l.p0.x)*l.ux+(p.y-l.p0.y)*l.uy,d=Math.hypot(p.x-(l.p0.x+l.ux*t),p.y-(l.p0.y+l.uy*t));if(d<bd){bd=d;best=l}});
+  if(!best||bd>best.w*1.5)return;
+  var a=Math.min(c.gi,best.gi),b=Math.max(c.gi,best.gi);
+  lanes.forEach(function(l){
+    if(l.grp!==c.grp||l.gi<a||l.gi>b)return;
+    var it=c.map[l.id];if(!it){it=c.map[l.id]={l:l,prev:0,undo:{}};act.items.push(it)}
+    var ic=Math.floor(((c.p0.x-l.p0.x)*l.ux+(c.p0.y-l.p0.y)*l.uy)/l.ps),sp=S.brush==="mid"?2:0;
+    var lo=S.brush==="all"?0:Math.max(0,ic-sp),hi=S.brush==="all"?l.n-1:Math.min(l.n-1,ic+sp);
+    if(hi<lo)return;
+    fill(l,lo*l.ps+0.01,hi*l.ps+0.01,v,it.undo);render(l);
+  });
+  c.gi=best.gi;
+}
 function lockStroke(p){
   var h=hit(p);if(!h)return;
+  if(CROSS[h.l.grp]&&orPen(h.l)>0){act.items=[];act.cross={grp:h.l.grp,p0:{x:p.x,y:p.y},gi:h.l.gi,map:{}};return}
   var span=gcount[h.l.grp]<=8?1:2;
   var set=S.brush==="one"?[h.l]:lanes.filter(function(l){return l.grp===h.l.grp&&(S.brush==="all"||Math.abs(l.gi-h.l.gi)<=span)});
   act.items=set.map(function(l){return{l:l,prev:near(l,p).s,undo:{}}});
@@ -764,7 +784,8 @@ function strokeMove(e){
   var p=toWorld(e.clientX,e.clientY);
   if(!act.items){lockStroke(p);if(!act.items)return}
   var v=S.mode==="paint"?{p:S.who,d:dstr(0)}:null;
-  act.items.forEach(function(it){
+  if(act.cross)crossMove(p,v);
+  else act.items.forEach(function(it){
     var l=it.l;
     if(!l.closed){var t=(p.x-l.p0.x)*l.ux+(p.y-l.p0.y)*l.uy;if(t<-1||t>l.L+1){it.prev=t<0?0:l.L;return}}
     var s=near(l,p).s,d=s-it.prev;
