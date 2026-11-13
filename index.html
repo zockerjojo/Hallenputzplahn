@@ -188,6 +188,7 @@ textarea:focus-visible,.tf:focus-visible{outline:3px solid var(--accent);outline
 .switch .opt{position:relative;flex:1;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;color:var(--ink);z-index:1}
 .switch[data-d="down"] .o1,.switch[data-d="right"] .o2{color:var(--on-accent)}
 .zoom{gap:5px}
+.map.zrow .zoom{flex-direction:row;left:8px;justify-content:space-between}
 .zb{width:38px;height:38px;font-size:18px}
 .zb.txt{font-size:12px}
 .zb:disabled{opacity:.35}
@@ -299,6 +300,7 @@ textarea:focus-visible,.tf:focus-visible{outline:3px solid var(--accent);outline
       <button class="zb" id="z-in" aria-label="Hineinzoomen">+</button>
       <button class="zb" id="z-out" aria-label="Herauszoomen">&minus;</button>
       <button class="zb txt" id="z-fit" aria-label="Ganze Halle zeigen">Alles</button>
+      <button class="zb" id="z-rot" type="button" aria-label="Plan drehen" title="Plan drehen">&#10227;</button>
       <button class="zb" id="z-full" type="button" aria-pressed="false" aria-label="Vollbild">&#9974;</button>
     </div>
   </main>
@@ -710,15 +712,17 @@ $("undo").addEventListener("click",function(){histStep(true)});
 $("redo").addEventListener("click",function(){histStep(false)});
 
 /* ---------- Ansicht: Drehen, Zoomen, Schieben ---------- */
-var V={z:1,cx:W0/2,cy:H0/2},portrait=false,OW=W0,OH=H0;
+var V={z:1,cx:W0/2,cy:H0/2},portrait=false,OW=W0,OH=H0,ROT="h";
+try{if(localStorage.getItem("putzplan-rot")==="v")ROT="v"}catch(e){}
 function orient(){
-  var r=map.getBoundingClientRect(),p=r.height>r.width;
+  var p=ROT==="v";
   if(p!==portrait||!orient.done){
     portrait=p;orient.done=true;
     OW=p?H0:W0;OH=p?W0:H0;
     world.setAttribute("transform",p?"translate("+H0+",0) rotate(90)":"");
     V.z=1;V.cx=OW/2;V.cy=OH/2;drawPins();
   }
+  var rr=map.getBoundingClientRect();map.classList.toggle("zrow",!portrait&&rr.height>rr.width);
   applyView();
 }
 function applyView(){
@@ -746,7 +750,7 @@ svg.addEventListener("wheel",function(e){e.preventDefault();zoomAt(e.clientX,e.c
 
 /* ---------- Finger und Maus ---------- */
 var ptrs=new Map(),gesture=null,act=null,pan=null,pinch=null,nd=null;
-function orPen(l){if(l.closed||!l.ux)return 0;var vert=Math.abs(l.uy)>Math.abs(l.ux);return (S.dir==="down")!==vert?6:0}
+function orPen(l){if(l.closed||l.ux===undefined)return 0;var vert=Math.abs(l.uy)>Math.abs(l.ux);if(portrait)vert=!vert;return (S.dir==="down")!==vert?6:0}
 function hit(p){var reg=region(p);if(!reg)return null;var best=null,bd=1e9;lanes.forEach(function(l){if(l.reg!==reg)return;var n=near(l,p);if(n.dist<=l.w/2+2.5&&n.dist+orPen(l)<bd){bd=n.dist+orPen(l);best={l:l,s:n.s}}});return best}
 function lockStroke(p){
   var h=hit(p);if(!h)return;
@@ -974,6 +978,7 @@ function setFull(on){
   setTimeout(orient,60);
 }
 $("z-full").addEventListener("click",function(){setFull(!FULL)});
+$("z-rot").addEventListener("click",function(){ROT=ROT==="h"?"v":"h";try{localStorage.setItem("putzplan-rot",ROT)}catch(e){}orient();say(ROT==="h"?"Plan liegt jetzt quer.":"Plan steht jetzt hochkant.",false)});
 document.addEventListener("fullscreenchange",function(){if(!document.fullscreenElement&&FULL)setFull(false)});
 
 /* ---------- Start ---------- */
